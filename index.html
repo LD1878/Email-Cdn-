@@ -1,100 +1,76 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acasa Email Asset Generator</title>
+    <title>Acasa Grid Generator</title>
     <style>
-        body { font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; padding: 40px; background: #f0f2f5; color: #1c1e21; }
-        .container { max-width: 800px; margin: 0 auto; }
-        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        h1 { margin-top: 0; font-size: 24px; color: #000; }
-        .input-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
-        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
-        .flex-group { display: flex; gap: 15px; }
-        button { background: #2ea44f; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 16px; width: 100%; }
-        button:hover { background: #2c974b; }
-        textarea { width: 100%; height: 150px; margin-top: 10px; font-family: monospace; border: 1px solid #ddd; border-radius: 6px; padding: 10px; box-sizing: border-box; background: #f8f9fa; }
-        #preview { background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 8px; margin-top: 10px; }
-        .instruction { font-size: 12px; color: #65676b; margin-top: 5px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: center; padding: 40px; background: #eef2f6; color: #333; }
+        .box { background: white; padding: 30px; border-radius: 16px; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        h1 { margin-top: 0; }
+        button { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 18px; font-weight: 600; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: transform 0.1s; }
+        button:active { transform: scale(0.98); }
+        #preview-container { margin-top: 40px; background: white; padding: 40px; border-radius: 16px; }
+        .instruction { color: #666; margin-bottom: 25px; }
+        /* This CSS is just for the generator page, not the email itself */
+        .email-wrapper { text-align: center; font-size: 0; }
+        .email-card { display: inline-block; width: 46%; margin: 1.5%; vertical-align: top; }
+        @media (max-width: 600px) { .email-card { width: 96% !important; margin: 2% !important; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="card">
-        <h1>🚀 Email Generator (ld1878)</h1>
-        
-        <div class="input-group">
-            <label>Ruta de la carpeta (dentro de /emails/)</label>
-            <input type="text" id="folderPath" placeholder="february/acasa" value="february/acasa">
-            <p class="instruction">Ejemplo: february/acasa (no pongas / al inicio ni al final)</p>
-        </div>
-
-        <div class="flex-group">
-            <div class="input-group" style="flex: 1;">
-                <label>Número de imágenes</label>
-                <input type="number" id="imageCount" value="4">
-            </div>
-            <div class="input-group" style="flex: 1;">
-                <label>Nombre base del archivo</label>
-                <input type="text" id="baseName" value="shot" placeholder="ej: shot">
-                <p class="instruction">Generará: shot-1.png, shot-2.png...</p>
-            </div>
-        </div>
-
-        <button onclick="generateEmail()">Generar Vista Previa y Código</button>
-    </div>
-
-    <div class="card">
-        <h3>1. Vista Previa</h3>
-        <p class="instruction">Selecciona y copia esto directamente para pegarlo en Gmail o Outlook.</p>
-        <div id="preview">La vista previa aparecerá aquí...</div>
-    </div>
-
-    <div class="card">
-        <h3>2. Código HTML</h3>
-        <p class="instruction">Usa este código en Mailchimp o editores de código.</p>
-        <textarea id="codeOutput" readonly></textarea>
-    </div>
+<div class="box">
+    <h1>✨ Acasa Grid Generator</h1>
+    <p class="instruction">Ensure 4 images are uploaded to <b>/emails/active/</b> as 1.png, 2.png, 3.png, 4.png</p>
+    <button onclick="copyToClipboard()">Copy "Floating Grid" Email</button>
 </div>
 
-<script>
-    function generateEmail() {
-        const username = "ld1878";
-        const repo = "Email-Cdn-";
-        const branch = "main"; // Cambia a "master" si tu rama se llama así
-        const folder = document.getElementById('folderPath').value.trim();
-        const count = document.getElementById('imageCount').value;
-        const baseName = document.getElementById('baseName').value.trim();
-        
-        let htmlContent = `<div style="max-width: 600px; margin: 0 auto; font-family: sans-serif; background-color: #ffffff;">`;
+<div id="preview-container">
+    <h3>Live Preview (How it looks in Gmail/Outlook)</h3>
+    <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 30px;">
 
-        for (let i = 1; i <= count; i++) {
-            const fileName = `${baseName}-${i}.png`;
-            const rawUrl = `https://raw.githubusercontent.com/${username}/${repo}/${branch}/emails/${folder}/${fileName}`;
+    <div id="email-content" style="max-width: 640px; margin: 0 auto; font-family: sans-serif; background-color: #f4f7f9; padding: 20px;">
+        <div style="text-align: center; font-size: 0;"> <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);">
+                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/active/1.png" 
+                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Screenshot 1">
+            </div>
+
+            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);">
+                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/active/2.png" 
+                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Screenshot 2">
+            </div>
             
-            htmlContent += `
-<div style="margin-bottom: 35px; border: 1px solid #e1e4e8; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-    <div style="background: #f6f8fa; padding: 10px; border-bottom: 1px solid #e1e4e8; display: flex; align-items: center;">
-        <div style="display: flex; gap: 5px;">
-            <span style="width:8px;height:8px;border-radius:50%;background:#ff5f56;display:inline-block;"></span>
-            <span style="width:8px;height:8px;border-radius:50%;background:#ffbd2e;display:inline-block;"></span>
-            <span style="width:8px;height:8px;border-radius:50%;background:#27c93f;display:inline-block;"></span>
+            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);">
+                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/active/3.png" 
+                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Screenshot 3">
+            </div>
+
+            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);">
+                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/active/4.png" 
+                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Screenshot 4">
+            </div>
+
         </div>
-        <span style="margin-left: 12px; font-size: 11px; color: #6a737d; font-family: monospace;">${fileName}</span>
+        <p style="text-align: center; color: #8898aa; font-size: 12px; margin-top: 20px;">Internal Updates • Acasa Project</p>
     </div>
-    <a href="${rawUrl}" target="_blank">
-        <img src="${rawUrl}" alt="Screenshot ${i}" style="width: 100%; display: block; border: none; height: auto;">
-    </a>
-</div>`;
-        }
+    </div>
 
-        htmlContent += `</div>`;
-
-        document.getElementById('preview').innerHTML = htmlContent;
-        document.getElementById('codeOutput').value = htmlContent;
+<script>
+    function copyToClipboard() {
+        const el = document.getElementById('email-content');
+        const range = document.createRange();
+        range.selectNode(el);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        // Visual feedback on the button
+        const btn = document.querySelector('button');
+        const originalText = btn.innerText;
+        btn.innerText = "✅ Copied! Paste into Email";
+        btn.style.background = "linear-gradient(135deg, #42e695 0%, #3bb2b8 100%)";
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = "";
+        }, 3000);
     }
 </script>
 
