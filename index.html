@@ -2,93 +2,121 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Acasa | Premium Email Ops</title>
+    <title>Acasa | Team Self-Service</title>
     <style>
-        body { font-family: -apple-system, system-ui, sans-serif; background: #f8fafc; padding: 40px; text-align: center; color: #1e293b; }
-        .config-card { background: white; padding: 30px; border-radius: 20px; display: inline-block; box-shadow: 0 10px 25px rgba(0,0,0,0.05); max-width: 500px; width: 100%; border: 1px solid #e2e8f0; }
-        input { width: 80%; padding: 12px; margin: 15px 0; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 16px; outline: none; }
-        input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
-        .btn-gen { background: #6366f1; color: white; border: none; padding: 14px 28px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .btn-gen:hover { background: #4f46e5; }
-        #output-section { margin-top: 40px; display: none; }
-        .btn-copy { background: #10b981; color: white; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 600; cursor: pointer; margin-bottom: 20px; }
+        :root { --primary: #2da44e; --secondary: #0969da; --bg: #f6f8fa; --card: #ffffff; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: var(--bg); padding: 40px; display: flex; justify-content: center; }
+        .dashboard { max-width: 900px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        
+        /* Card Styles */
+        .card { background: var(--card); padding: 30px; border-radius: 12px; border: 1px solid #d0d7de; box-shadow: 0 3px 6px rgba(140,149,159,0.03); }
+        h2 { margin-top: 0; font-size: 20px; border-bottom: 1px solid #d0d7de; padding-bottom: 15px; margin-bottom: 20px; }
+        .step-num { display: inline-block; background: var(--secondary); color: white; width: 24px; height: 24px; text-align: center; border-radius: 50%; font-size: 14px; line-height: 24px; margin-right: 8px; }
+        
+        /* Inputs & Buttons */
+        label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 8px; color: #24292f; }
+        input { width: 100%; padding: 10px; border: 1px solid #d0d7de; border-radius: 6px; font-size: 16px; box-sizing: border-box; margin-bottom: 20px; }
+        .btn { display: block; width: 100%; padding: 12px; text-align: center; border-radius: 6px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; font-size: 16px; transition: 0.2s; }
+        
+        /* Specific Button Colors */
+        .btn-upload { background: var(--primary); color: white; }
+        .btn-upload:hover { background: #2c974b; }
+        .btn-gen { background: var(--secondary); color: white; }
+        .btn-gen:hover { background: #035fc7; }
+        .btn-copy { background: #f6f8fa; color: #24292f; border: 1px solid #d0d7de; margin-top: 15px; }
+        
+        /* Preview Area */
+        .full-width { grid-column: span 2; }
+        #preview-box { display: none; margin-top: 20px; border: 1px dashed #d0d7de; padding: 20px; background: #fff; border-radius: 8px; }
+        
+        @media (max-width: 700px) { .dashboard { grid-template-columns: 1fr; } .full-width { grid-column: span 1; } }
     </style>
 </head>
 <body>
 
-<div class="config-card">
-    <h2 style="margin-top:0;">🚀 Acasa Grid Builder</h2>
-    <p style="font-size:14px; color:#64748b;">Path: <b>emails / [folder] / shot-#.png</b></p>
-    <input type="text" id="folder" placeholder="e.g., february/acasa" value="february/acasa">
-    <br>
-    <button class="btn-gen" onclick="generate()">Generate Master Grid</button>
-</div>
+<div class="dashboard">
 
-<div id="output-section">
-    <button class="btn-copy" onclick="copyGrid()">📋 Copy for Gmail / Outlook</button>
-    
-    <div id="render-target" style="padding: 20px; background: white; border-radius: 16px; border: 1px dashed #cbd5e1;">
+    <div class="card">
+        <h2><span class="step-num">1</span> Upload Assets</h2>
+        <p style="font-size: 14px; color: #57606a;">
+            1. Rename your 4 images to: <br>
+            <code>projectname-1.png</code>, <code>projectname-2.png</code>...<br><br>
+            2. Click the button below.<br>
+            3. Drag & Drop them into the page.<br>
+            4. Click the green "Commit changes" button.
+        </p>
+        <a href="https://github.com/ld1878/Email-Cdn-/upload/main/emails" target="_blank" class="btn btn-upload">Go to GitHub Upload &rarr;</a>
+    </div>
+
+    <div class="card">
+        <h2><span class="step-num">2</span> Generate Email</h2>
+        <label>Project Name (Prefix)</label>
+        <input type="text" id="projectPrefix" placeholder="e.g. march-acasa">
         
-        <div id="email-body">
-            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f1f5f9; padding: 30px; border-radius: 24px;">
-                <tr>
-                    <td align="center">
-                        <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0">
-                            <tr>
-                                <td width="300" align="center" style="padding: 10px;">
-                                    <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
-                                        <tr><td style="padding: 12px;"><img id="s1" src="" width="256" style="width: 100%; max-width: 256px; display: block; border-radius: 8px;" alt="View Update 1"></td></tr>
-                                    </table>
-                                </td>
-                                <td width="300" align="center" style="padding: 10px;">
-                                    <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
-                                        <tr><td style="padding: 12px;"><img id="s2" src="" width="256" style="width: 100%; max-width: 256px; display: block; border-radius: 8px;" alt="View Update 2"></td></tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="300" align="center" style="padding: 10px;">
-                                    <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
-                                        <tr><td style="padding: 12px;"><img id="s3" src="" width="256" style="width: 100%; max-width: 256px; display: block; border-radius: 8px;" alt="View Update 3"></td></tr>
-                                    </table>
-                                </td>
-                                <td width="300" align="center" style="padding: 10px;">
-                                    <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
-                                        <tr><td style="padding: 12px;"><img id="s4" src="" width="256" style="width: 100%; max-width: 256px; display: block; border-radius: 8px;" alt="View Update 4"></td></tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                        <p style="margin-top: 20px; font-family: sans-serif; font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Acasa Internal Update</p>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        </div>
+        <label>Number of Images</label>
+        <input type="number" id="imgCount" value="4">
+
+        <button class="btn btn-gen" onclick="generate()">Create Magic Email</button>
+    </div>
+
+    <div class="card full-width" id="preview-box">
+        <h3 style="margin-top: 0;">Ready to Copy</h3>
+        <p style="font-size: 13px; color: #57606a;">Click the button below to copy the code for Outlook/Gmail.</p>
+        <button class="btn btn-copy" onclick="copyCode()">📋 Copy to Clipboard</button>
+        
+        <div id="email-output" style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px;"></div>
+    </div>
+
 </div>
 
 <script>
     function generate() {
         const user = "ld1878";
         const repo = "Email-Cdn-";
-        const f = document.getElementById('folder').value.trim();
-        const base = `https://raw.githubusercontent.com/${user}/${repo}/main/emails/${f}`;
+        const branch = "main";
+        const prefix = document.getElementById('projectPrefix').value.trim();
+        const count = document.getElementById('imgCount').value;
+        const container = document.getElementById('email-output');
+        
+        let html = `
+        <div style="font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; background: #fff;">
+            <p style="color: #666; font-size: 12px; text-align: center; margin-bottom: 20px;">
+                Unable to see images? <span style="text-decoration: underline;">Right-click to download.</span>
+            </p>`;
 
-        document.getElementById('s1').src = `${base}/shot-1.png`;
-        document.getElementById('s2').src = `${base}/shot-2.png`;
-        document.getElementById('s3').src = `${base}/shot-3.png`;
-        document.getElementById('s4').src = `${base}/shot-4.png`;
-
-        document.getElementById('output-section').style.display = 'block';
+        for (let i = 1; i <= count; i++) {
+            // Note: We are using the "emails" root folder now for simplicity
+            const imgUrl = `https://raw.githubusercontent.com/${user}/${repo}/${branch}/emails/${prefix}-${i}.png`;
+            
+            html += `
+            <div style="margin-bottom: 20px; border: 1px solid #e1e4e8; border-radius: 6px; overflow: hidden;">
+                <div style="background: #f6f8fa; padding: 5px 10px; font-size: 11px; color: #57606a; border-bottom: 1px solid #e1e4e8; font-family: monospace;">
+                    ${prefix}-${i}.png
+                </div>
+                <div style="background-color: #f3f4f6; text-align: center; min-height: 100px;">
+                    <a href="${imgUrl}" style="text-decoration: none; display: block;">
+                        <img src="${imgUrl}" 
+                             alt="▶ Click to View Image ${i}" 
+                             width="600"
+                             style="width: 100%; max-width: 600px; display: block; height: auto; background-color: #f3f4f6; color: #0969da; font-size: 14px; line-height: 100px;">
+                    </a>
+                </div>
+            </div>`;
+        }
+        
+        html += `</div>`;
+        container.innerHTML = html;
+        document.getElementById('preview-box').style.display = 'block';
     }
 
-    function copyGrid() {
+    function copyCode() {
+        const el = document.getElementById('email-output');
         const range = document.createRange();
-        range.selectNode(document.getElementById('email-body'));
+        range.selectNode(el);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
         document.execCommand('copy');
-        alert("✨ Professional Grid Copied! Paste into your email draft.");
+        alert("Copied! Paste into your email.");
     }
 </script>
 
