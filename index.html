@@ -1,93 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Acasa | Bulletproof Tool</title>
+    <meta charset="UTF-8">
+    <title>Acasa | Premium Email Ops</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4f8; padding: 40px; text-align: center; }
-        .card { background: white; padding: 30px; border-radius: 12px; display: inline-block; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 450px; width: 100%; }
-        input { width: 80%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
-        button { background: #007bff; color: white; border: none; padding: 15px 30px; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; }
-        button:hover { background: #0056b3; }
-        #copy-area { margin-top: 30px; display: none; }
-        .instructions { font-size: 12px; color: #666; margin-bottom: 20px; }
+        body { font-family: -apple-system, system-ui, sans-serif; background: #f8fafc; padding: 40px; text-align: center; color: #1e293b; }
+        .config-card { background: white; padding: 30px; border-radius: 20px; display: inline-block; box-shadow: 0 10px 25px rgba(0,0,0,0.05); max-width: 500px; width: 100%; border: 1px solid #e2e8f0; }
+        input { width: 80%; padding: 12px; margin: 15px 0; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 16px; outline: none; }
+        input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+        .btn-gen { background: #6366f1; color: white; border: none; padding: 14px 28px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-gen:hover { background: #4f46e5; }
+        #output-section { margin-top: 40px; display: none; }
+        .btn-copy { background: #10b981; color: white; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 600; cursor: pointer; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>🏗️ Acasa Grid Builder</h2>
-    <p class="instructions">Type the subfolder path below.<br>Example: <b>february/acasa</b></p>
-    
-    <input type="text" id="folderInput" placeholder="february/acasa" value="february/acasa">
+<div class="config-card">
+    <h2 style="margin-top:0;">🚀 Acasa Grid Builder</h2>
+    <p style="font-size:14px; color:#64748b;">Path: <b>emails / [folder] / shot-#.png</b></p>
+    <input type="text" id="folder" placeholder="e.g., february/acasa" value="february/acasa">
     <br>
-    <button onclick="buildGrid()">Generate Outlook Grid</button>
+    <button class="btn-gen" onclick="generate()">Generate Master Grid</button>
 </div>
 
-<div id="copy-area">
-    <button style="background: #28a745;" onclick="copyToClipboard()">✅ Copy for Outlook / Gmail</button>
-    <p class="instructions" style="margin-top:10px;">Preview below:</p>
+<div id="output-section">
+    <button class="btn-copy" onclick="copyGrid()">📋 Copy for Gmail / Outlook</button>
     
-    <div id="email-preview">
-        <div id="email-content">
-            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f1f5f9; padding: 20px; border-radius: 15px;">
+    <div id="render-target" style="padding: 20px; background: white; border-radius: 16px; border: 1px dashed #cbd5e1;">
+        
+        <div id="email-body">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f1f5f9; padding: 30px; border-radius: 24px;">
                 <tr>
                     <td align="center">
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600">
+                        <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0">
                             <tr>
-                                <td width="300" style="padding: 10px;" align="center">
-                                    <table cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border: 1px solid #dddddd; border-radius: 12px;">
-                                        <tr><td style="padding: 10px;"><img id="img1" src="" width="260" style="width: 100%; max-width: 260px; display: block;"></td></tr>
+                                <td width="300" align="center" style="padding: 10px;">
+                                    <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
+                                        <tr><td style="padding: 12px;"><img id="s1" src="" width="256" style="width: 100%; max-width: 256px; display: block; border-radius: 8px;" alt="View Update 1"></td></tr>
                                     </table>
                                 </td>
-                                <td width="300" style="padding: 10px;" align="center">
-                                    <table cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border: 1px solid #dddddd; border-radius: 12px;">
-                                        <tr><td style="padding: 10px;"><img id="img2" src="" width="260" style="width: 100%; max-width: 260px; display: block;"></td></tr>
+                                <td width="300" align="center" style="padding: 10px;">
+                                    <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
+                                        <tr><td style="padding: 12px;"><img id="s2" src="" width="256" style="width: 100%; max-width: 256px; display: block; border-radius: 8px;" alt="View Update 2"></td></tr>
                                     </table>
                                 </td>
                             </tr>
                             <tr>
-                                <td width="300" style="padding: 10px;" align="center">
-                                    <table cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border: 1px solid #dddddd; border-radius: 12px;">
-                                        <tr><td style="padding: 10px;"><img id="img3" src="" width="260" style="width: 100%; max-width: 260px; display: block;"></td></tr>
+                                <td width="300" align="center" style="padding: 10px;">
+                                    <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
+                                        <tr><td style="padding: 12px;"><img id="s3" src="" width="256" style="width: 100%; max-width: 256px; display: block; border-radius: 8px;" alt="View Update 3"></td></tr>
                                     </table>
                                 </td>
-                                <td width="300" style="padding: 10px;" align="center">
-                                    <table cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border: 1px solid #dddddd; border-radius: 12px;">
-                                        <tr><td style="padding: 10px;"><img id="img4" src="" width="260" style="width: 100%; max-width: 260px; display: block;"></td></tr>
+                                <td width="300" align="center" style="padding: 10px;">
+                                    <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;">
+                                        <tr><td style="padding: 12px;"><img id="s4" src="" width="256" style="width: 100%; max-width: 256px; display: block; border-radius: 8px;" alt="View Update 4"></td></tr>
                                     </table>
                                 </td>
                             </tr>
                         </table>
+                        <p style="margin-top: 20px; font-family: sans-serif; font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Acasa Internal Update</p>
                     </td>
                 </tr>
             </table>
         </div>
-    </div>
+        </div>
 </div>
 
 <script>
-    function buildGrid() {
+    function generate() {
         const user = "ld1878";
         const repo = "Email-Cdn-";
-        const folder = document.getElementById('folderInput').value.trim();
-        const baseUrl = `https://raw.githubusercontent.com/${user}/${repo}/main/emails/${folder}`;
+        const f = document.getElementById('folder').value.trim();
+        const base = `https://raw.githubusercontent.com/${user}/${repo}/main/emails/${f}`;
 
-        // Set the image sources
-        document.getElementById('img1').src = `${baseUrl}/shot-1.png`;
-        document.getElementById('img2').src = `${baseUrl}/shot-2.png`;
-        document.getElementById('img3').src = `${baseUrl}/shot-3.png`;
-        document.getElementById('img4').src = `${baseUrl}/shot-4.png`;
+        document.getElementById('s1').src = `${base}/shot-1.png`;
+        document.getElementById('s2').src = `${base}/shot-2.png`;
+        document.getElementById('s3').src = `${base}/shot-3.png`;
+        document.getElementById('s4').src = `${base}/shot-4.png`;
 
-        document.getElementById('copy-area').style.display = 'block';
+        document.getElementById('output-section').style.display = 'block';
     }
 
-    function copyToClipboard() {
+    function copyGrid() {
         const range = document.createRange();
-        range.selectNode(document.getElementById('email-content'));
+        range.selectNode(document.getElementById('email-body'));
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
         document.execCommand('copy');
-        alert("Grid Copied! Now paste (Ctrl+V) into Outlook.");
+        alert("✨ Professional Grid Copied! Paste into your email draft.");
     }
 </script>
 
