@@ -1,110 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Acasa | Bulletproof Grid</title>
+    <title>Acasa | Bulletproof Tool</title>
     <style>
-        :root { --bg: #f1f5f9; --primary: #4f46e5; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 40px; text-align: center; }
-        .card { background: white; padding: 30px; border-radius: 20px; display: inline-block; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); max-width: 500px; }
-        .project-btn { background: #fff; border: 1px solid #ddd; padding: 15px; margin: 5px; border-radius: 8px; cursor: pointer; }
-        .project-btn:hover { border-color: var(--primary); }
-        #copy-btn { background: var(--primary); color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 20px; display: none; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4f8; padding: 40px; text-align: center; }
+        .card { background: white; padding: 30px; border-radius: 12px; display: inline-block; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 450px; width: 100%; }
+        input { width: 80%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        button { background: #007bff; color: white; border: none; padding: 15px 30px; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #0056b3; }
+        #copy-area { margin-top: 30px; display: none; }
+        .instructions { font-size: 12px; color: #666; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <h1>🏗️ Outlook-Proof Grid</h1>
-    <p>Select folder to generate a table-based grid that works in Outlook.</p>
-    <div id="project-list">Scanning...</div>
-    <button id="copy-btn" onclick="copyEmail()">Copy Grid for Outlook</button>
+    <h2>🏗️ Acasa Grid Builder</h2>
+    <p class="instructions">Type the subfolder path below.<br>Example: <b>february/acasa</b></p>
+    
+    <input type="text" id="folderInput" placeholder="february/acasa" value="february/acasa">
+    <br>
+    <button onclick="buildGrid()">Generate Outlook Grid</button>
 </div>
 
-<div id="stage" style="margin-top: 40px; display:none;">
-    <div id="email-content">
-        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f1f5f9; border-radius: 24px; padding: 20px;">
-            <tr>
-                <td align="center">
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600">
-                        <tbody id="grid-body">
-                            </tbody>
-                    </table>
-                </td>
-            </tr>
-        </table>
+<div id="copy-area">
+    <button style="background: #28a745;" onclick="copyToClipboard()">✅ Copy for Outlook / Gmail</button>
+    <p class="instructions" style="margin-top:10px;">Preview below:</p>
+    
+    <div id="email-preview">
+        <div id="email-content">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f1f5f9; padding: 20px; border-radius: 15px;">
+                <tr>
+                    <td align="center">
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600">
+                            <tr>
+                                <td width="300" style="padding: 10px;" align="center">
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border: 1px solid #dddddd; border-radius: 12px;">
+                                        <tr><td style="padding: 10px;"><img id="img1" src="" width="260" style="width: 100%; max-width: 260px; display: block;"></td></tr>
+                                    </table>
+                                </td>
+                                <td width="300" style="padding: 10px;" align="center">
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border: 1px solid #dddddd; border-radius: 12px;">
+                                        <tr><td style="padding: 10px;"><img id="img2" src="" width="260" style="width: 100%; max-width: 260px; display: block;"></td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="300" style="padding: 10px;" align="center">
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border: 1px solid #dddddd; border-radius: 12px;">
+                                        <tr><td style="padding: 10px;"><img id="img3" src="" width="260" style="width: 100%; max-width: 260px; display: block;"></td></tr>
+                                    </table>
+                                </td>
+                                <td width="300" style="padding: 10px;" align="center">
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border: 1px solid #dddddd; border-radius: 12px;">
+                                        <tr><td style="padding: 10px;"><img id="img4" src="" width="260" style="width: 100%; max-width: 260px; display: block;"></td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 
 <script>
-    const user = "ld1878";
-    const repo = "Email-Cdn-";
-    const branch = "main";
+    function buildGrid() {
+        const user = "ld1878";
+        const repo = "Email-Cdn-";
+        const folder = document.getElementById('folderInput').value.trim();
+        const baseUrl = `https://raw.githubusercontent.com/${user}/${repo}/main/emails/${folder}`;
 
-    async function scanRepo() {
-        const resp = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/emails`);
-        const items = await resp.json();
-        const folders = items.filter(i => i.type === 'dir');
-        const list = document.getElementById('project-list');
-        list.innerHTML = '';
-        folders.forEach(f => {
-            const btn = document.createElement('button');
-            btn.className = 'project-btn';
-            btn.innerText = f.name;
-            btn.onclick = () => loadProject(f.name);
-            list.appendChild(btn);
-        });
+        // Set the image sources
+        document.getElementById('img1').src = `${baseUrl}/shot-1.png`;
+        document.getElementById('img2').src = `${baseUrl}/shot-2.png`;
+        document.getElementById('img3').src = `${baseUrl}/shot-3.png`;
+        document.getElementById('img4').src = `${baseUrl}/shot-4.png`;
+
+        document.getElementById('copy-area').style.display = 'block';
     }
 
-    async function loadProject(path) {
-        const resp = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/emails/${path}`);
-        const files = await resp.json();
-        const images = files.filter(f => f.name.endsWith('.png'));
-        
-        const gridBody = document.getElementById('grid-body');
-        gridBody.innerHTML = '';
-        
-        // Build table rows (2 images per row)
-        for (let i = 0; i < images.length; i += 2) {
-            let row = document.createElement('tr');
-            
-            for (let j = 0; j < 2; j++) {
-                let cell = document.createElement('td');
-                cell.setAttribute('width', '300');
-                cell.setAttribute('align', 'center');
-                cell.setAttribute('style', 'padding: 10px;');
-                
-                if (images[i + j]) {
-                    const url = `https://raw.githubusercontent.com/${user}/${repo}/${branch}/emails/${path}/${images[i + j].name}`;
-                    cell.innerHTML = `
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border-radius: 16px; border: 1px solid #dddddd;">
-                            <tr>
-                                <td style="padding: 10px;">
-                                    <img src="${url}" width="260" style="width: 100%; max-width: 260px; display: block; border-radius: 8px;">
-                                </td>
-                            </tr>
-                        </table>
-                    `;
-                }
-                row.appendChild(cell);
-            }
-            gridBody.appendChild(row);
-        }
-        
-        document.getElementById('stage').style.display = 'block';
-        document.getElementById('copy-btn').style.display = 'inline-block';
-    }
-
-    function copyEmail() {
+    function copyToClipboard() {
         const range = document.createRange();
         range.selectNode(document.getElementById('email-content'));
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
         document.execCommand('copy');
-        alert("Bulletproof Grid Copied!");
+        alert("Grid Copied! Now paste (Ctrl+V) into Outlook.");
     }
-
-    scanRepo();
 </script>
+
 </body>
 </html>
