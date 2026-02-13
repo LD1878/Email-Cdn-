@@ -1,61 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Acasa Grid Tool</title>
+    <meta charset="UTF-8">
+    <title>Acasa | Bulletproof Grid</title>
     <style>
-        body { font-family: -apple-system, sans-serif; text-align: center; padding: 40px; background: #eef2f6; }
-        .box { background: white; padding: 30px; border-radius: 16px; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-        button { background: #667eea; color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 18px; font-weight: 600; cursor: pointer; }
-        #preview-container { margin-top: 40px; background: white; padding: 40px; border-radius: 16px; display: inline-block; }
+        :root { --bg: #f1f5f9; --primary: #4f46e5; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 40px; text-align: center; }
+        .card { background: white; padding: 30px; border-radius: 20px; display: inline-block; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); max-width: 500px; }
+        .project-btn { background: #fff; border: 1px solid #ddd; padding: 15px; margin: 5px; border-radius: 8px; cursor: pointer; }
+        .project-btn:hover { border-color: var(--primary); }
+        #copy-btn { background: var(--primary); color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; margin-top: 20px; display: none; }
     </style>
 </head>
 <body>
 
-<div class="box">
-    <h1>✨ Acasa Grid Tool (Fixed)</h1>
-    <p>Target: <b>emails/february/acasa/shot-1.png</b></p>
-    <button onclick="copyToClipboard()">Copy Floating Grid to Email</button>
+<div class="card">
+    <h1>🏗️ Outlook-Proof Grid</h1>
+    <p>Select folder to generate a table-based grid that works in Outlook.</p>
+    <div id="project-list">Scanning...</div>
+    <button id="copy-btn" onclick="copyEmail()">Copy Grid for Outlook</button>
 </div>
 
-<div id="preview-container">
-    <div id="email-content" style="max-width: 640px; margin: 0 auto; font-family: sans-serif; background-color: #f4f7f9; padding: 20px; border-radius: 20px;">
-        <div style="text-align: center; font-size: 0;"> 
-            
-            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
-                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/february/acasa/shot-1.png" 
-                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Shot 1">
-            </div>
-
-            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
-                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/february/acasa/shot-2.png" 
-                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Shot 2">
-            </div>
-            
-            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
-                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/february/acasa/shot-3.png" 
-                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Shot 3">
-            </div>
-
-            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
-                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/february/acasa/shot-4.png" 
-                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Shot 4">
-            </div>
-
-        </div>
+<div id="stage" style="margin-top: 40px; display:none;">
+    <div id="email-content">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f1f5f9; border-radius: 24px; padding: 20px;">
+            <tr>
+                <td align="center">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600">
+                        <tbody id="grid-body">
+                            </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 
 <script>
-    function copyToClipboard() {
-        const el = document.getElementById('email-content');
+    const user = "ld1878";
+    const repo = "Email-Cdn-";
+    const branch = "main";
+
+    async function scanRepo() {
+        const resp = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/emails`);
+        const items = await resp.json();
+        const folders = items.filter(i => i.type === 'dir');
+        const list = document.getElementById('project-list');
+        list.innerHTML = '';
+        folders.forEach(f => {
+            const btn = document.createElement('button');
+            btn.className = 'project-btn';
+            btn.innerText = f.name;
+            btn.onclick = () => loadProject(f.name);
+            list.appendChild(btn);
+        });
+    }
+
+    async function loadProject(path) {
+        const resp = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/emails/${path}`);
+        const files = await resp.json();
+        const images = files.filter(f => f.name.endsWith('.png'));
+        
+        const gridBody = document.getElementById('grid-body');
+        gridBody.innerHTML = '';
+        
+        // Build table rows (2 images per row)
+        for (let i = 0; i < images.length; i += 2) {
+            let row = document.createElement('tr');
+            
+            for (let j = 0; j < 2; j++) {
+                let cell = document.createElement('td');
+                cell.setAttribute('width', '300');
+                cell.setAttribute('align', 'center');
+                cell.setAttribute('style', 'padding: 10px;');
+                
+                if (images[i + j]) {
+                    const url = `https://raw.githubusercontent.com/${user}/${repo}/${branch}/emails/${path}/${images[i + j].name}`;
+                    cell.innerHTML = `
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border-radius: 16px; border: 1px solid #dddddd;">
+                            <tr>
+                                <td style="padding: 10px;">
+                                    <img src="${url}" width="260" style="width: 100%; max-width: 260px; display: block; border-radius: 8px;">
+                                </td>
+                            </tr>
+                        </table>
+                    `;
+                }
+                row.appendChild(cell);
+            }
+            gridBody.appendChild(row);
+        }
+        
+        document.getElementById('stage').style.display = 'block';
+        document.getElementById('copy-btn').style.display = 'inline-block';
+    }
+
+    function copyEmail() {
         const range = document.createRange();
-        range.selectNode(el);
+        range.selectNode(document.getElementById('email-content'));
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
         document.execCommand('copy');
-        alert("Grid Copied! Paste it into your email draft.");
+        alert("Bulletproof Grid Copied!");
     }
-</script>
 
+    scanRepo();
+</script>
 </body>
 </html>
