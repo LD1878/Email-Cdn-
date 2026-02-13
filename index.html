@@ -1,58 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Acasa Grid Generator</title>
+    <title>Acasa Grid Tool</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: center; padding: 40px; background: #eef2f6; color: #333; }
+        body { font-family: -apple-system, sans-serif; text-align: center; padding: 40px; background: #eef2f6; }
         .box { background: white; padding: 30px; border-radius: 16px; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-        h1 { margin-top: 0; }
-        button { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 18px; font-weight: 600; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: transform 0.1s; }
-        button:active { transform: scale(0.98); }
-        #preview-container { margin-top: 40px; background: white; padding: 40px; border-radius: 16px; }
-        .instruction { color: #666; margin-bottom: 25px; }
-        /* This CSS is just for the generator page, not the email itself */
-        .email-wrapper { text-align: center; font-size: 0; }
-        .email-card { display: inline-block; width: 46%; margin: 1.5%; vertical-align: top; }
-        @media (max-width: 600px) { .email-card { width: 96% !important; margin: 2% !important; } }
+        button { background: #667eea; color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 18px; font-weight: 600; cursor: pointer; }
+        #preview-container { margin-top: 40px; background: white; padding: 40px; border-radius: 16px; display: inline-block; }
     </style>
 </head>
 <body>
 
 <div class="box">
-    <h1>✨ Acasa Grid Generator</h1>
-    <p class="instruction">Ensure 4 images are uploaded to <b>/emails/active/</b> as 1.png, 2.png, 3.png, 4.png</p>
-    <button onclick="copyToClipboard()">Copy "Floating Grid" Email</button>
+    <h1>✨ Acasa Grid Tool (Fixed)</h1>
+    <p>Target: <b>emails/february/acasa/shot-1.png</b></p>
+    <button onclick="copyToClipboard()">Copy Floating Grid to Email</button>
 </div>
 
 <div id="preview-container">
-    <h3>Live Preview (How it looks in Gmail/Outlook)</h3>
-    <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 30px;">
-
-    <div id="email-content" style="max-width: 640px; margin: 0 auto; font-family: sans-serif; background-color: #f4f7f9; padding: 20px;">
-        <div style="text-align: center; font-size: 0;"> <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);">
-                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/active/1.png" 
-                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Screenshot 1">
+    <div id="email-content" style="max-width: 640px; margin: 0 auto; font-family: sans-serif; background-color: #f4f7f9; padding: 20px; border-radius: 20px;">
+        <div style="text-align: center; font-size: 0;"> 
+            
+            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
+                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/february/acasa/shot-1.png" 
+                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Shot 1">
             </div>
 
-            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);">
-                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/active/2.png" 
-                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Screenshot 2">
+            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
+                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/february/acasa/shot-2.png" 
+                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Shot 2">
             </div>
             
-            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);">
-                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/active/3.png" 
-                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Screenshot 3">
+            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
+                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/february/acasa/shot-3.png" 
+                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Shot 3">
             </div>
 
-            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);">
-                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/active/4.png" 
-                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Screenshot 4">
+            <div style="display: inline-block; width: 280px; margin: 10px; vertical-align: top; background: #ffffff; padding: 10px; border-radius: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
+                <img src="https://raw.githubusercontent.com/ld1878/Email-Cdn-/main/emails/february/acasa/shot-4.png" 
+                     style="width: 100%; height: auto; display: block; border-radius: 8px;" alt="Shot 4">
             </div>
 
         </div>
-        <p style="text-align: center; color: #8898aa; font-size: 12px; margin-top: 20px;">Internal Updates • Acasa Project</p>
     </div>
-    </div>
+</div>
 
 <script>
     function copyToClipboard() {
@@ -62,15 +53,7 @@
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
         document.execCommand('copy');
-        // Visual feedback on the button
-        const btn = document.querySelector('button');
-        const originalText = btn.innerText;
-        btn.innerText = "✅ Copied! Paste into Email";
-        btn.style.background = "linear-gradient(135deg, #42e695 0%, #3bb2b8 100%)";
-        setTimeout(() => {
-            btn.innerText = originalText;
-            btn.style.background = "";
-        }, 3000);
+        alert("Grid Copied! Paste it into your email draft.");
     }
 </script>
 
