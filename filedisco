@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinilos Warhol | Sonido Analógico en Alta Definición</title>
+    <style>
+        /* =========================================
+           VARIABLES DE DISEÑO (APPLE x WARHOL)
+           ========================================= */
+        :root {
+            /* Paleta Pop Art */
+            --magenta-warhol: #FF00FF;
+            --cyan-warhol: #00FFFF;
+            --amarillo-warhol: #FFFF00;
+            --verde-toxico: #39FF14;
+            
+            /* Apple Glassmorphism */
+            --glass-bg: rgba(18, 18, 20, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-blur: blur(24px);
+            
+            /* Tipografía y Espaciado */
+            --text-primary: #FFFFFF;
+            --text-secondary: #EBEBF599;
+            --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+
+        /* =========================================
+           RESET Y BASE
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: #000;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* =========================================
+           FONDO ANIMADO (VINILO CSS PURO)
+           ========================================= */
+        .fondo-vinilo-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150vw;
+            height: 150vw;
+            max-width: 1200px;
+            max-height: 1200px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .vinilo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #111;
+            box-shadow: 0 0 150px var(--magenta-warhol);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: girar-vinilo 4s linear infinite;
+        }
+
+        .surcos {
+            width: 95%;
+            height: 95%;
+            border-radius: 50%;
+            background: repeating-radial-gradient(
+                #111,
+                #111 4px,
+                #1a1a1a 5px,
+                #1a1a1a 9px
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .etiqueta-central {
+            width: 30%;
+            height: 30%;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--magenta-warhol), 
+                var(--cyan-warhol), 
+                var(--amarillo-warhol), 
+                var(--verde-toxico), 
+                var(--magenta-warhol)
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 6px solid #000;
+        }
+
+        .agujero-central {
+            width: 5%;
+            height: 5%;
+            background: #000;
+            border-radius: 50%;
+        }
+
+        @keyframes girar-vinilo {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* =========================================
+           CLASES UTILITARIAS (GLASSMORPHISM)
+           ========================================= */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+        }
+
+        /* =========================================
+           HEADER & NAVEGACIÓN
+           ========================================= */
+        header {
+            position: sticky;
+            top: 20px;
+            margin: 0 auto;
+            width: 92%;
+            max-width: 1400px;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 32px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--magenta-warhol), var(--cyan-warhol));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--cyan-warhol);
+        }
+
+        /* Buscador Apple-Style */
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 10px 20px 10px 40px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            width: 180px;
+            outline: none;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            font-family: var(--font-stack);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-input:focus {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--magenta-warhol);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--text-secondary);
+            border-radius: 50%;
+        }
+        .search-icon::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 8px;
+            background: var(--text-secondary);
+            bottom: -6px;
+            right: -4px;
+            transform: rotate(-45deg);
+        }
+
+        /* =========================================
+           HERO SECTION
+           ========================================= */
+        .hero {
+            width: 92%;
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 80px 60px;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            /* Sombra dura estilo serigrafía Pop Art */
+            text-shadow: 6px 6px 0px var(--amarillo-warhol), 12px 12px 0px var(--cyan-warhol);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            font-weight: 400;
+        }
+
+        /* =========================================
+           PRODUCT GRID (REPETICIÓN WARHOL)
+           ========================================= */
+        .productos-container {
+            width: 92%;
+            max-width: 1400px;
+            margin: 0 auto 100px auto;
+        }
+
+        .grid-warhol {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .producto-card {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Asignación de colores rotativos mediante variables locales */
+        .producto-card:nth-child(4n+1) { --accent: var(--magenta-warhol); }
+        .producto-card:nth-child(4n+2) { --accent: var(--cyan-warhol); }
+        .producto-card:nth-child(4n+3) { --accent: var(--amarillo-warhol); }
+        .producto-card:nth-child(4n+4) { --accent: var(--verde-toxico); }
+
+        .producto-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 15px 15px 0px var(--accent);
+        }
+
+        .portada-album {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background-color: #222;
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+            /* Simulación de arte de portada con gradientes */
+            background-image: linear-gradient(45deg, var(--accent) 0%, transparent 100%);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+        }
+
+        .producto-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .producto-titulo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .producto-artista {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .producto-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .producto-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 20px;
+        }
+
+        .precio {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .btn-comprar {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--text-primary);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .producto-card:hover .btn-comprar {
+            background: var(--text-primary);
+            color: #000;
+            box-shadow: 0 0 15px var(--text-primary);
+        }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        footer {
+            width: 92%;
+            max-width: 1400px;
+            margin: 0 auto 40px auto;
+            padding: 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--cyan-warhol);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col ul a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-bottom {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 20px;
+        }
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .search-input {
+                width: 100%;
+            }
+            .search-input:focus {
+                width: 100%;
+            }
+            .hero h1 {
+                font-size: 3rem;
+                text-shadow: 4px 4px 0px var(--amarillo-warhol), 8px 8px 0px var(--cyan-warhol);
+            }
+            .hero {
+                padding: 40px 20px;
+            }
+            footer {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fondo-vinilo-container">
+        <div class="vinilo">
+            <div class="surcos">
+                <div class="etiqueta-central">
+                    <div class="agujero-central"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="glass-panel">
+        <div class="logo">Fábrica de Sonido</div>
+        <nav>
+            <a href="#" class="nav-link">Inicio</a>
+            <a href="#" class="nav-link">Catálogo</a>
+            <a href="#" class="nav-link">Colecciones</a>
+        </nav>
+        <div class="search-container">
+            <div class="search-icon"></div>
+            <input type="text" class="search-input" placeholder="Buscar artistas, álbumes...">
+        </div>
+    </header>
+
+    <section class="hero glass-panel">
+        <h1>El Color del<br>Sonido Analógico</h1>
+        <p>Descubre nuestra curaduría exclusiva de vinilos de alta fidelidad. Donde la estridencia visual del arte pop se encuentra con la pureza acústica absoluta.</p>
+    </section>
+
+    <main class="productos-container">
+        <div class="grid-warhol">
+            
+            <article class="producto-card glass-panel" id="prod-001">
+                <div class="portada-album"></div>
+                <div class="producto-info">
+                    <h2 class="producto-titulo">Sopa de Frecuencias</h2>
+                    <p class="producto-artista">Los Sintéticos</p>
+                    <p class="producto-desc">Una edición maestra prensada en 180 gramos. Remasterizado desde las cintas analógicas originales para ofrecer unos graves profundos y una textura sonora inigualable. Incluye inserto litográfico a color.</p>
+                    <div class="producto-footer">
+                        <span class="precio">34,99 €</span>
+                        <button class="btn-comprar" data-id="001">Comprar</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="producto-card glass-panel" id="prod-002">
+                <div class="portada-album"></div>
+                <div class="producto-info">
+                    <h2 class="producto-titulo">Marilyn en Estéreo</h2>
+                    <p class="producto-artista">Ondas Mecánicas</p>
+                    <p class="producto-desc">El álbum definitivo de la era dorada del dreampop. Su funda exterior presenta un acabado mate premium con detalles en barniz UV sectorizado. Sonido expansivo que desafía los límites de tu tocadiscos.</p>
+                    <div class="producto-footer">
+                        <span class="precio">42,50 €</span>
+                        <button class="btn-comprar" data-id="002">Comprar</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="producto-card glass-panel" id="prod-003">
+                <div class="portada-album"></div>
+                <div class="producto-info">
+                    <h2 class="producto-titulo">Terciopelo Subterráneo</h2>
+                    <p class="producto-artista">La Fábrica de Ruido</p>
+                    <p class="producto-desc">Grabación en vivo desde los legendarios estudios de Nueva York en 1968. Esta joya captura la fricción cruda y la disonancia perfecta. Empaque desplegable (*gatefold*) con fotografías de archivo inéditas.</p>
+                    <div class="producto-footer">
+                        <span class="precio">38,00 €</span>
+                        <button class="btn-comprar" data-id="003">Comprar</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="producto-card glass-panel" id="prod-004">
+                <div class="portada-album"></div>
+                <div class="producto-info">
+                    <h2 class="producto-titulo">Serigrafía Sónica</h2>
+                    <p class="producto-artista">Neon Dissonance</p>
+                    <p class="producto-desc">Un viaje vanguardista a través del techno analógico. Cada disco ha sido salpicado a mano con pintura reactiva a los rayos UV, asegurando que ninguna copia sea exactamente igual a otra. Puro coleccionismo.</p>
+                    <div class="producto-footer">
+                        <span class="precio">55,90 €</span>
+                        <button class="btn-comprar" data-id="004">Comprar</button>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <footer class="glass-panel">
+        <div class="footer-col">
+            <h3>Explorar</h3>
+            <ul>
+                <li><a href="#">Novedades</a></li>
+                <li><a href="#">Ediciones Limitadas</a></li>
+                <li><a href="#">Accesorios</a></li>
+                <li><a href="#">Tarjetas de Regalo</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Soporte</h3>
+            <ul>
+                <li><a href="#">Estado del Pedido</a></li>
+                <li><a href="#">Envíos y Entregas</a></li>
+                <li><a href="#">Devoluciones</a></li>
+                <li><a href="#">FAQ de Cuidado de Vinilos</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Nuestra Filosofía</h3>
+            <ul>
+                <li><a href="#">El Manifiesto Analógico</a></li>
+                <li><a href="#">Prensado Sostenible</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Fábrica de Sonido. Diseñado en California. Ensamblado en la vanguardia.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
