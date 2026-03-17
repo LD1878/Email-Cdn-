@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clip 'n Climb Pitch - Luke Davies</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Muli:wght@400;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. GLOBAL STYLES */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Muli', sans-serif; background-color: #ffffff; color: #662D91; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
+        h1, h2, h3, h4 { font-family: 'Bebas Neue', sans-serif; line-height: 1.1; font-weight: normal; }
+        
+        /* 2. WAVY BORDERS & BRAND COLORS */
+        .scalloped-bottom-purple {
+            position: relative; background: #662D91; padding: 80px 0 100px; color: #fff;
+        }
+        .scalloped-bottom-purple::after {
+            content: ''; position: absolute; bottom: -10px; left: 0; right: 0; height: 10px;
+            background-image: radial-gradient(circle at 15px 0, transparent 16px, #ffffff 17px);
+            background-size: 30px 20px; background-repeat: repeat-x; z-index: 10;
+        }
+        
+        .scalloped-green {
+            position: relative; background: #c9d22a; padding: 80px 0; text-align: center; color: #662D91;
+        }
+        .scalloped-green::before {
+            content: ''; position: absolute; top: -10px; left: 0; right: 0; height: 10px;
+            background-image: radial-gradient(circle at 15px 10px, transparent 16px, #c9d22a 17px);
+            background-size: 30px 20px; background-repeat: repeat-x; z-index: 10;
+        }
+        .scalloped-green::after {
+            content: ''; position: absolute; bottom: -10px; left: 0; right: 0; height: 10px;
+            background-image: radial-gradient(circle at 15px 0, transparent 16px, #ffffff 17px);
+            background-size: 30px 20px; background-repeat: repeat-x; z-index: 10;
+        }
+
+        .bg-blue { background: #009de0; color: #fff; padding: 80px 0; }
+        .bg-orange { background: #ff8b00; color: #fff; padding: 80px 0; }
+
+        /* 3. LAYOUT COMPONENTS */
+        .text-center { text-align: center; }
+        .mb-1 { margin-bottom: 15px; }
+        .mb-2 { margin-bottom: 30px; }
+        .mb-3 { margin-bottom: 50px; }
+        
+        .huge-title { font-size: 80px; color: #fff; margin-bottom: 10px; }
+        .section-title { font-size: 55px; margin-bottom: 20px; }
+        .sub-title { font-size: 35px; margin-bottom: 15px; }
+        
+        /* Two Column Layout */
+        .split-row { display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; }
+        .split-col { flex: 1 1 calc(50% - 20px); }
+        
+        /* Custom List Styling */
+        .brand-list { list-style: none; }
+        .brand-list li { margin-bottom: 15px; padding-left: 30px; position: relative; font-size: 18px; }
+        .brand-list li::before {
+            content: '►'; position: absolute; left: 0; top: 0; 
+            font-family: 'Bebas Neue', sans-serif; color: #ff8b00; font-size: 22px;
+        }
+        .brand-list-white li::before { color: #c9d22a; }
+
+        /* 6-Card Sprint Grid */
+        .sprint-grid { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 40px; }
+        .sprint-card { 
+            background: #fff; padding: 30px; border-top: 6px solid #009de0; 
+            flex: 1 1 calc(33.333% - 14px); box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .sprint-card h4 { color: #009de0; font-size: 30px; margin-bottom: 10px; }
+        .sprint-card p { font-size: 15px; margin-bottom: 10px; color: #333; }
+        .sprint-card .deliverable { background: #f7f7f7; padding: 10px; font-size: 14px; font-weight: bold; border-left: 3px solid #ff8b00; margin-top: 15px; color: #662D91;}
+
+        @media (max-width: 900px) {
+            .split-col { flex: 1 1 100%; }
+            .sprint-card { flex: 1 1 calc(50% - 10px); }
+            .huge-title { font-size: 50px; }
+        }
+        @media (max-width: 600px) {
+            .sprint-card { flex: 1 1 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="scalloped-bottom-purple text-center">
+        <div class="container">
+            <h3 style="color: #c9d22a; font-size: 30px; letter-spacing: 2px;">STRATEGY PROPOSAL</h3>
+            <h1 class="huge-title">CLIP 'N CLIMB<br>INITIAL IDEA</h1>
+            <p style="font-size: 22px; max-width: 600px; margin: 20px auto 0; font-weight: bold;">
+                Prepared by Luke Davies
+            </p>
+        </div>
+    </header>
+
+    <section class="container" style="padding: 80px 20px;">
+        <div class="split-row">
+            <div class="split-col">
+                <h2 class="section-title">DEFINING THE WIN</h2>
+                <p class="mb-2" style="font-size: 20px; font-weight: bold;">A 90-day sprint to show undeniable ROI for Halifax and Gloucester.</p>
+                <p class="mb-2">We want to set a benchmark so high that rolling this out to the remaining 78 locations is an easy decision. We measure success by ranking these goals:</p>
+                <ul class="brand-list mb-2">
+                    <li><strong>Direct Sales:</strong> Increase in booked tickets and party inquiries directly from website visitors.</li>
+                    <li><strong>New Customer Discovery:</strong> Growth in traffic from parents searching for solutions (e.g., "kids indoor activities"), not just the brand name.</li>
+                    <li><strong>Local Map Dominance:</strong> Showing up first on Google Maps for local directions and weekend ideas.</li>
+                </ul>
+                <p><em>*Baseline Requirement: We need baseline website traffic and booking data from the previous quarter before we launch.</em></p>
+            </div>
+            
+            <div class="split-col" style="background: #f7f7f7; padding: 40px;">
+                <h2 class="section-title" style="color: #ff8b00;">THE WEBSITE STRUCTURE</h2>
+                <h3 class="sub-title">OUR STRATEGIC ADVANTAGE</h3>
+                <p class="mb-2">Your locations are built on separate subdomains (e.g., halifax.clipnclimb.co.uk) rather than folders. Google treats these as entirely separate websites. Halifax and Gloucester don't automatically inherit the massive search engine trust of the main brand.</p>
+                <p style="font-weight: bold; font-size: 18px;">Our Approach:</p>
+                <p>This is a massive opportunity for hyper-local focus. We treat Halifax and Gloucester as independent, local powerhouses. We will build highly specialized authority for these sites so they completely dominate their specific towns and shut out nearby competitors.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-blue" style="padding-bottom: 100px;">
+        <div class="container">
+            <h2 class="section-title text-center" style="color: #c9d22a;">THE 90-DAY SPRINT</h2>
+            <p class="text-center" style="max-width: 800px; margin: 0 auto; font-size: 18px;">
+                We are compressing 6 months of standard work into a 90-day aggressive sprint. By utilizing AI-assisted workflows, we execute at a much higher velocity. Here are the bi-weekly milestones:
+            </p>
+
+            <div class="sprint-grid">
+                <div class="sprint-card">
+                    <h4>WEEKS 1-2</h4>
+                    <p><strong>Foundation & Quick Wins</strong></p>
+                    <p>• Connect/audit Google tracking.<br>• Overhaul Google Business Profiles (tags, FAQs).<br>• Push "Striking Distance" keywords to page 1.</p>
+                    <div class="deliverable">Deliverable: Kickoff report & quick-wins.</div>
+                </div>
+                <div class="sprint-card">
+                    <h4>WEEKS 3-4</h4>
+                    <p><strong>Local Content Engine</strong></p>
+                    <p>• Publish high-volume local articles.<br>• Link articles directly to booking pages.<br>• Fix broken links and slow-loading pages.</p>
+                    <div class="deliverable">Deliverable: Action report & initial visibility.</div>
+                </div>
+                <div class="sprint-card">
+                    <h4>WEEKS 5-6</h4>
+                    <p><strong>Trust & Fixing Leaks</strong></p>
+                    <p>• Publish deep-dive parent anxiety content.<br>• Clean up local directories.<br>• Redesign "Book Now" flows if needed.</p>
+                    <div class="deliverable">Deliverable: Progress report & sales tweaks.</div>
+                </div>
+                <div class="sprint-card">
+                    <h4>WEEKS 7-8</h4>
+                    <p><strong>Outsmarting Competition</strong></p>
+                    <p>• AI scan of top 3 local competitors.<br>• Upgrade our pages to answer questions better.<br>• Target surrounding suburbs.</p>
+                    <div class="deliverable">Deliverable: Market & competitor strategy report.</div>
+                </div>
+                <div class="sprint-card">
+                    <h4>WEEKS 9-10</h4>
+                    <p><strong>The Revenue Push</strong></p>
+                    <p>• Pure focus on driving sales.<br>• Refine booking pages based on 60 days of data.<br>• Push fresh updates/offers to Google Maps.</p>
+                    <div class="deliverable">Deliverable: Revenue & direct booking report.</div>
+                </div>
+                <div class="sprint-card">
+                    <h4>WEEKS 11-12</h4>
+                    <p><strong>The Blueprint</strong></p>
+                    <p>• Final compilation of data and ranking.<br>• Package the exact succeeding workflows.</p>
+                    <div class="deliverable">Deliverable: Executive Report & 80-Location Blueprint.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="scalloped-green">
+        <div class="container split-row text-center">
+            <div style="max-width: 900px; margin: 0 auto;">
+                <h2 class="section-title">HOW WE WORK</h2>
+                <h3 class="sub-title" style="color: #009de0;">AI, AUTOMATION & TRANSPARENCY</h3>
+                <p class="mb-2" style="font-size: 18px;">
+                    Traditional agencies spend weeks manually pulling data. We use AI to do the heavy lifting, allowing our team to focus purely on high-level strategy and revenue.
+                </p>
+            </div>
+        </div>
+        <div class="container split-row" style="text-align: left; margin-top: 20px;">
+            <div class="split-col">
+                <h3 class="sub-title" style="font-size: 28px;">SMART AI, HUMAN TOUCH</h3>
+                <ul class="brand-list">
+                    <li><strong>Market Research:</strong> AI analyzes thousands of local competitor data points to find missing keywords.</li>
+                    <li><strong>Content Frameworks:</strong> AI builds the data-backed skeleton; our human team writes the engaging copy.</li>
+                    <li><strong>Local Automation:</strong> Automated workflows keep Google Maps constantly updated.</li>
+                </ul>
+            </div>
+            <div class="split-col">
+                <h3 class="sub-title" style="font-size: 28px;">DIGESTIBLE REPORTING</h3>
+                <p class="mb-1">No confusing spreadsheets. Every two weeks, you receive a clean, presentation-ready report covering:</p>
+                <ul class="brand-list">
+                    <li><strong>The Inputs:</strong> What we built or fixed.</li>
+                    <li><strong>The Outcomes:</strong> Traffic, Map views, and "Book Now" clicks.</li>
+                    <li><strong>The Next Move:</strong> Our strategy for the next 14 days.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="scalloped-bottom-purple" style="padding-bottom: 60px;">
+        <div class="container">
+            <h2 class="section-title text-center mb-3" style="color: #ff8b00;">NEXT STEPS & KICKOFF</h2>
+            <div class="split-row">
+                <div class="split-col">
+                    <h3 class="sub-title">1. PLATFORM ACCESS</h3>
+                    <p class="mb-2">We need Admin/Editor access for Halifax and Gloucester: GA4, Google Search Console, Google Business Profiles, and WordPress CMS.</p>
+                    
+                    <h3 class="sub-title">2. BASELINE METRICS</h3>
+                    <p class="mb-2">What were the total website visitors and online bookings over the last 30-90 days? (If unknown, we will establish this in Week 1).</p>
+                </div>
+                <div class="split-col">
+                    <h3 class="sub-title">3. APPROVALS & BRAND VOICE</h3>
+                    <p class="mb-2">Who is the single point of contact for bi-weekly content approval? Are there strict guidelines or "off-limit" topics?</p>
+                    
+                    <h3 class="sub-title">4. THE GREEN LIGHT</h3>
+                    <p class="mb-2">Once we have access and success metrics confirmed, we start the 90-day clock. You'll receive the Week 1 Kickoff Report within 14 days.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
