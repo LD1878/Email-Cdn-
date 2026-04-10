@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SEO Audit & Progress - Executive Deck</title>
+    <style>
+        :root {
+            --navy: #0a192f;
+            --gray-dark: #1f2937;
+            --gray-light: #f3f4f6;
+            --accent-blue: #2563eb;
+            --accent-green: #059669;
+            --border: #e5e7eb;
+            --text-main: #374151;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: #cbd5e1;
+            color: var(--text-main);
+        }
+
+        /* Slide Container */
+        .slide {
+            width: 297mm;
+            height: 210mm;
+            background: white;
+            margin: 40px auto;
+            padding: 50px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hard-line Professional Branding */
+        .slide::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--navy);
+        }
+
+        header {
+            border-bottom: 2px solid var(--navy);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        h1 { font-size: 28px; margin: 0; text-transform: uppercase; letter-spacing: 1px; color: var(--navy); }
+        .page-num { font-size: 14px; font-weight: bold; color: var(--slate); }
+
+        h2 { font-size: 20px; color: var(--accent-blue); margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        
+        .content { flex-grow: 1; }
+
+        .expert-quote {
+            border-left: 4px solid var(--accent-blue);
+            padding: 15px 25px;
+            background: var(--gray-light);
+            margin: 20px 0;
+            font-weight: 500;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { text-align: left; padding: 12px; background: var(--gray-light); border: 1px solid var(--border); font-size: 13px; text-transform: uppercase; }
+        td { padding: 12px; border: 1px solid var(--border); font-size: 14px; }
+
+        .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 30px 0; }
+        .stat-item { border: 1px solid var(--border); padding: 20px; text-align: center; }
+        .stat-val { display: block; font-size: 32px; font-weight: bold; color: var(--navy); }
+        .stat-label { font-size: 12px; text-transform: uppercase; color: var(--accent-blue); font-weight: bold; }
+
+        .urgent-fix { background: #fee2e2; border-left: 5px solid #dc2626; padding: 15px; margin-bottom: 10px; font-size: 14px; }
+        
+        footer { margin-top: auto; font-size: 11px; color: var(--slate); display: flex; justify-content: space-between; }
+
+        @media print {
+            body { background: none; }
+            .slide { margin: 0; box-shadow: none; page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide">
+    <header>
+        <h1>Performance Audit Overview</h1>
+        <span class="page-num">01</span>
+    </header>
+    <div class="content">
+        <h2>Stabilizing Impressions & Technical Foundations</h2>
+        <p>The site is currently experiencing a weekly decline in search impressions. This audit was initiated to identify technical blockers and content gaps preventing sustained visibility. We have prioritized urgent infrastructure and logic repairs to stop the decline.</p>
+        
+        <div class="expert-quote">
+            "SEO Strategist: The drop in impressions suggests a loss of authority on service-level pages. We are moving away from volume-based content to depth-based expertise to meet Google’s E-E-A-T criteria."
+        </div>
+
+        <div class="stat-grid">
+            <div class="stat-item"><span class="stat-val">3,201</span><span class="stat-label">Points Scanned</span></div>
+            <div class="stat-item"><span class="stat-val">Weekly</span><span class="stat-label">Impression Decline</span></div>
+            <div class="stat-item"><span class="stat-val">Service</span><span class="stat-label">Page Focus</span></div>
+            <div class="stat-item"><span class="stat-val">Logic</span><span class="stat-label">Manual Repairs</span></div>
+        </div>
+    </div>
+    <footer>
+        <span>ebrand | Confidential Strategic Report</span>
+        <span>Technical SEO Audit 2024</span>
+    </footer>
+</div>
+
+<div class="slide">
+    <header>
+        <h1>Infrastructure & Security</h1>
+        <span class="page-num">02</span>
+    </header>
+    <div class="content">
+        <h2>DevOps Pillar: Global Security Standards</h2>
+        <p>A significant portion of the audit flags (899 items) relate to missing server-side security headers (HSTS, CSP). While these do not "break" the page, they are primary trust signals for search engine crawlers.</p>
+        
+        <div class="expert-quote">
+            "DevOps Lead: These are not individual errors on pages. They are server-level configurations. A single update to the global security protocol will resolve 28% of the total audit warnings."
+        </div>
+
+        <table>
+            <tr>
+                <th>Infrastructure Item</th>
+                <th>Volume</th>
+                <th>Resolution Plan</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>HSTS & Security Headers</td>
+                <td>459</td>
+                <td>Global Server Config (Nginx/Cloudflare)</td>
+                <td>Pending Bulk Deployment</td>
+            </tr>
+            <tr>
+                <td>Content Security Policy</td>
+                <td>220</td>
+                <td>Unified Header Policy Implementation</td>
+                <td>Pending Bulk Deployment</td>
+            </tr>
+            <tr>
+                <td>Time to First Byte (TTFB)</td>
+                <td>219</td>
+                <td>Server Response Optimization</td>
+                <td>In Review</td>
+            </tr>
+        </table>
+    </div>
+    <footer>
+        <span>Expert Owner: DevOps Lead</span>
+        <span>Slide 02</span>
+    </footer>
+</div>
+
+<div class="slide">
+    <header>
+        <h1>Manual Logic Audit</h1>
+        <span class="page-num">03</span>
+    </header>
+    <div class="content">
+        <h2>Surgical Redirect & Navigation Repairs</h2>
+        <p>Beyond automated scans, we performed a manual inspection of the site's redirect architecture. This involved searching every redirect URL, tracing the final destination, and identifying faults where users or bots were getting trapped.</p>
+
+        <div class="urgent-fix">
+            <strong>Fixed:</strong> Redirect loops between <em>ebrand.com</em> and <em>ebrandservices.com</em>. This was a critical failure point for authenticated users.
+        </div>
+        <div class="urgent-fix">
+            <strong>Fixed:</strong> Faulty external links to LinkedIn and Tesla profiles. These were identified by manually checking every high-authority partner link.
+        </div>
+
+        <div class="expert-quote">
+            "SEO Strategist: These manual repairs solve the 'logic' of the site. Crawlers can now move through the conversion funnel without hitting timeouts or dead-ends."
+        </div>
+    </div>
+    <footer>
+        <span>Data Insight: 256 Critical Logic Points Audited</span>
+        <span>Slide 03</span>
+    </footer>
+</div>
+
+<div class="slide">
+    <header>
+        <h1>Service Page E-E-A-T</h1>
+        <span class="page-num">04</span>
+    </header>
+    <div class="content">
+        <h2>Quality Over Volume Strategy</h2>
+        <p>Google’s algorithm rewards Experience, Expertise, Authoritativeness, and Trust (E-E-A-T). Despite a high volume of content, impressions are falling because service descriptions lack sufficient depth and expert citations.</p>
+
+        <table>
+            <tr>
+                <th>Focus Area</th>
+                <th>Requirement</th>
+                <th>Action Taken</th>
+            </tr>
+            <tr>
+                <td>Expertise</td>
+                <td>Deep Service Descriptions</td>
+                <td>Expanding service page word counts with industry-specific data.</td>
+            </tr>
+            <tr>
+                <td>Authoritativeness</td>
+                <td>Consistent Metadata</td>
+                <td>Standardizing Titles and Meta across all global service pages.</td>
+            </tr>
+            <tr>
+                <td>Trustworthiness</td>
+                <td>Technical Hygiene</td>
+                <td>Removing duplicate meta-descriptions that cause keyword confusion.</td>
+            </tr>
+        </table>
+
+        <div class="expert-quote">
+            "SEO Strategist: The weekly decline is a signal that our service pages are being outperformed by competitors with more authoritative content. Renewal is the priority."
+        </div>
+    </div>
+    <footer>
+        <span>Target: Recovery of Service Page Impressions</span>
+        <span>Slide 04</span>
+    </footer>
+</div>
+
+<div class="slide">
+    <header>
+        <h1>Visual Layout Stability</h1>
+        <span class="page-num">05</span>
+    </header>
+    <div class="content">
+        <h2>UX Pillar: Image Dimension Optimization</h2>
+        <p>The audit identified 803 instances where images are missing explicit size attributes. This causes the page to "shift" as images load, a poor experience that Google penalizes via Core Web Vitals.</p>
+        
+        <div class="expert-quote">
+            "UX Director: Layout stability is a conversion factor. If a page jumps while a user is trying to click a service link, they will leave. This is a template-level fix."
+        </div>
+
+        <div class="stat-grid">
+            <div class="stat-item"><span class="stat-val">803</span><span class="stat-label">Image Errors</span></div>
+            <div class="stat-item"><span class="stat-val">High</span><span class="stat-label">Layout Shift Risk</span></div>
+            <div class="stat-item"><span class="stat-val">Mobile</span><span class="stat-label">Primary Impact</span></div>
+            <div class="stat-item"><span class="stat-val">1 Click</span><span class="stat-label">Template Fix</span></div>
+        </div>
+
+        <p><strong>Action:</strong> Update the CSS and Global Header to ensure all image tags include width and height attributes by default.</p>
+    </div>
+    <footer>
+        <span>Expert Owner: UX Director</span>
+        <span>Slide 05</span>
+    </footer>
+</div>
+
+<div class="slide">
+    <header>
+        <h1>Multilingual Content Integrity</h1>
+        <span class="page-num">06</span>
+    </header>
+    <div class="content">
+        <h2>Addressing Global Trust Gaps</h2>
+        <p>The audit reveals significant inconsistencies in meta-descriptions across Italian, Spanish, French, and Chinese pages. While metadata alone does not drive massive ranking shifts, it is a critical trust factor for local searchers.</p>
+        
+        <div class="urgent-fix" style="background: #f0f9ff; border-left-color: #0ea5e9;">
+            <strong>Issue:</strong> Language pages (e.g., /es/, /it/) are often using English meta-descriptions or missing them entirely, leading to lower Click-Through Rates (CTR).
+        </div>
+
+        <div class="expert-quote">
+            "SEO Strategist: We are aligning all language folders to ensure the local user experience matches the main English site. This is a core part of our global E-E-A-T renewal."
+        </div>
+    </div>
+    <footer>
+        <span>Targeting CTR improvements for Global Markets</span>
+        <span>Slide 06</span>
+    </footer>
+</div>
+
+<div class="slide">
+    <header>
+        <h1>Volume vs. Value Analysis</h1>
+        <span class="page-num">07</span>
+    </header>
+    <div class="content">
+        <h2>Categorizing the 3,201 Audit Items</h2>
+        <p>To provide a realistic view of the workload, we have categorized every flag into "Systemic" (Bulk Fixes) and "Tactical" (Manual Fixes).</p>
+        
+        <table>
+            <tr>
+                <th>Work Type</th>
+                <th>Volume</th>
+                <th>Effort Level</th>
+                <th>Impact on Impressions</th>
+            </tr>
+            <tr>
+                <td><strong>Systemic (DevOps/UX)</strong></td>
+                <td>1,702</td>
+                <td>Low (Template Update)</td>
+                <td>High (Site-Wide Trust)</td>
+            </tr>
+            <tr>
+                <td><strong>Tactical (Content/Logic)</strong></td>
+                <td>1,499</td>
+                <td>High (Page-by-Page)</td>
+                <td>Critical (E-E-A-T)</td>
+            </tr>
+        </table>
+
+        <div class="expert-quote">
+            "SEO Strategist: Do not let the 3,000 number cause alarm. 53% of the audit will be cleared with two targeted technical deployments."
+        </div>
+    </div>
+    <footer>
+        <span>Data Summary: Tactical Fixes are the Current Priority</span>
+        <span>Slide 07</span>
+    </footer>
+</div>
+
+<div class="slide">
+    <header>
+        <h1>URL Transparency</h1>
+        <span class="page-num">08</span>
+    </header>
+    <div class="content">
+        <h2>Representative Sample of Resolved & Pending Items</h2>
+        <p>Direct pull from the technical audit CSV showing the variety of issues being addressed.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>URL Path Sample</th>
+                    <th>Issue Type</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>/blog/2026/04/01/</td>
+                    <td>Missing Meta Description</td>
+                    <td><strong>Resolved</strong></td>
+                </tr>
+                <tr>
+                    <td>/manufacturing-and-automotive/</td>
+                    <td>Long Meta Description</td>
+                    <td><strong>Resolved</strong></td>
+                </tr>
+                <tr>
+                    <td>http://www.ebrand.com/</td>
+                    <td>Redirection Fault (30x)</td>
+                    <td><em>Pending (Tactical)</em></td>
+                </tr>
+                <tr>
+                    <td>/legal-teams/</td>
+                    <td>Duplicate Title</td>
+                    <td><em>Pending (Content)</em></td>
+                </tr>
+                <tr>
+                    <td>/it-teams/</td>
+                    <td>Duplicate Title</td>
+                    <td><em>Pending (Content)</em></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        <span>Full Raw Data Available in Technical Audit CSV</span>
+        <span>Final Slide</span>
+    </footer>
+</div>
+
+</body>
+</html>
